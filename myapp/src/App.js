@@ -2,13 +2,19 @@ import React, {Component} from 'react';
 import Ninjas from './Ninjas'
 
 class App extends Component {
+  state = {
+    ninjas : [
+              { name: 'Ryu', age: 30, belt: 'black', id: 1 },
+              { name: 'Yoshi', age: 20, belt: 'green', id: 2 },
+              { name: 'Crystal', age: 25, belt: 'pink', id: 3 }
+    ]
+  }
+
   render(){
     return (
       <div className="App">
         <h1>Hello Akash</h1>  
-        {/* Sendig props to Ninjas Component*/}
-        <Ninjas name="Akash" age="22" belt="black"/> 
-        <Ninjas name="Anubhav" age="8" belt="yellow"/>  
+        <Ninjas ninjas={this.state.ninjas}/>  
       </div>
     );
   }
