@@ -1,13 +1,6 @@
 import React, {Component} from 'react';
 import Ninjas from './Ninjas'
 
-// Container Component
-//   contain state
-//   contain lifecycly hooks
-//   not concerend with UI
-//   *****use classes to create*****
-
-
 class App extends Component {
   state = {
     ninjas : [
