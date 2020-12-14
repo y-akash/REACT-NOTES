@@ -12,12 +12,21 @@ class App extends Component {
     ]
   }
 
+  addNinja = (ninja)=>{
+    ninja.id=this.state.ninjas[this.state.ninjas.length-1].id+1;
+    console.log(ninja);
+    let ninjas=[...this.state.ninjas,ninja];  // spread operator
+    this.setState({
+      ninjas:ninjas
+    });
+  }
+
   render(){
     return (
       <div className="App">
         <h1>Hello Akash</h1>  
         <Ninjas ninjas={this.state.ninjas}/>  
-        <AddNinja />
+        <AddNinja addNinja={this.addNinja}/>
       </div>
     );
   }
