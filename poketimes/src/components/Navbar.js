@@ -1,13 +1,10 @@
 import React from 'react';
-import {Link, NavLink} from 'react-router-dom';
+import {Link, NavLink, withRouter} from 'react-router-dom';
 
-// if we use <a></a> tag than page reload we dont want that therfore we use Link or NavLink
-// Link or NavLink dont reload or sends the request to server
-// Link and NavLink both work same and 
-// react automatically give anchor tag on html page it will not show Link and NavLink tag on the HTML page
-// but NavLink add class="active" in anchor tag remaing all are same
-
-const Navbar = () => {
+const Navbar = (props) => {
+  // here we dont get any property in props
+  // if we use withrRouter higherOrder Component than we will get that properties in props which is use on line 27
+  console.log("In Navbar ",props);
   return (
     <nav className="nav-wrapper red darken-3">
       <div className="container">
@@ -22,4 +19,9 @@ const Navbar = () => {
   )
 }
 
-export default Navbar
+// withRouter is a higherOrder Component
+// below wrapping the Navbar with withrRouter higherOrder Component 
+// the Navbar component become supercharge component
+// using that we can get that few properties in props
+
+export default withRouter(Navbar);

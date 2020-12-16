@@ -1,6 +1,15 @@
 import React from 'react';
 
-const Contact = ()=>{
+const Contact = (props)=>{
+    // the react router automatically applies the few property to props when it redirects.
+    // for that it comes in <Route> tag. for example <Route exact path='/' component={Home}/>
+    // so after redirect the props will get few property.
+    console.log("Contact ",props);
+
+    // here we are redirecting to the '/about' page using programmatic
+    setTimeout(()=>{
+        console.log(props.history.push('/about'));
+    },2000);
     return(
         <div className="container">
             <h4 className="center">Contact</h4>
