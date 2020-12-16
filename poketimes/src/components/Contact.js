@@ -1,4 +1,5 @@
 import React from 'react';
+import Rainbow from '../hoc/Rainbow'
 
 const Contact = ()=>{
     return(
@@ -9,4 +10,5 @@ const Contact = ()=>{
     );
 }
 
-export default Contact;
+// here we wrapped Contact componet in a High order Component Raninbow
+export default Rainbow(Contact);
