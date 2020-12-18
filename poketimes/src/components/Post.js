@@ -2,12 +2,23 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 class Post extends Component {
+
+  handleClick = () => {
+    this.props.deletePost(this.props.post.id);
+    this.props.history.push('/');
+  }
+
   render() {
     console.log("Inside render",this.props);
     const post = this.props.post ? (
       <div className="post">
         <h4 className="center">{this.props.post.title}</h4>
         <p>{this.props.post.body}</p>
+        <div className="center">
+          <button className="btn grey" onClick={this.handleClick}>
+            Delete Post
+          </button>
+        </div>
       </div>
     ) : (
       <div className="center">Loading post...</div>
@@ -21,16 +32,11 @@ class Post extends Component {
   }
 }
 
-
-// ownProps refers to the props of the current componet before we attach additional details from redux store to props
 const mapStateToProps = (state, ownProps) =>{
   let id= ownProps.match.params.post_id;
   let tempPost = {};
-  // console.log('id',id);
   state.posts.forEach(post => {
-    // console.log("State",post.id);
     if (post.id === id){
-      console.log("inside if",post);
       tempPost=post;
     }
   });
@@ -39,4 +45,14 @@ const mapStateToProps = (state, ownProps) =>{
   }
 }
 
-export default connect(mapStateToProps)(Post);
+// as we map state to props similarly here we are mapping dispatch to props
+// it takes dispatch method as a parameter
+// in codepen we did store.dispatch() but here we have just do dispatch()
+const mapDispatchToProps = (dispatch) => {
+  // it will return the object to props
+  return {
+    deletePost: (id) => dispatch({type: 'DELETE_POST', id: id})
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Post);
