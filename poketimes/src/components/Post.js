@@ -1,26 +1,13 @@
-import React, { Component } from 'react'
-import axios from 'axios'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 class Post extends Component {
-  state = {
-    post: null
-  }
-  componentDidMount(){
-    let id = this.props.match.params.post_id;
-    axios.get('https://jsonplaceholder.typicode.com/posts/' + id)
-      .then(res => {
-        this.setState({
-          post: res.data
-        });
-        //console.log(res.data);
-      });
-  }
   render() {
-
-    const post = this.state.post ? (
+    console.log("Inside render",this.props);
+    const post = this.props.post ? (
       <div className="post">
-        <h4 className="center">{this.state.post.title}</h4>
-        <p>{this.state.post.body}</p>
+        <h4 className="center">{this.props.post.title}</h4>
+        <p>{this.props.post.body}</p>
       </div>
     ) : (
       <div className="center">Loading post...</div>
@@ -34,4 +21,22 @@ class Post extends Component {
   }
 }
 
-export default Post
+
+// ownProps refers to the props of the current componet before we attach additional details from redux store to props
+const mapStateToProps = (state, ownProps) =>{
+  let id= ownProps.match.params.post_id;
+  let tempPost = {};
+  // console.log('id',id);
+  state.posts.forEach(post => {
+    // console.log("State",post.id);
+    if (post.id === id){
+      console.log("inside if",post);
+      tempPost=post;
+    }
+  });
+  return {
+    post: tempPost
+  }
+}
+
+export default connect(mapStateToProps)(Post);
