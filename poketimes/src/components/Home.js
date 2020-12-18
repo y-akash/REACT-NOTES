@@ -1,25 +1,11 @@
 import React, {Component} from 'react';
-import axios from 'axios';   // axios is a http request library     install from npm
 import { Link } from 'react-router-dom';
 import Pokeball from '../pokeball.png';
+import { connect } from 'react-redux'
 
 class Home extends Component {
-    state = {
-        posts: []
-    }
-    componentDidMount(){
-        // axios is a http request library
-        // we can also use fetch instead of axios.
-        axios.get('https://jsonplaceholder.typicode.com/posts/')
-        .then(res => {
-            console.log(res);
-            this.setState({
-            posts: res.data.slice(0,10)
-            });
-        })
-    }
     render(){
-        const { posts } = this.state
+        const { posts } = this.props;
         const postList = posts.length ? (
         posts.map(post => {
             return (
@@ -49,4 +35,22 @@ class Home extends Component {
     }
 }
 
-export default Home;
+// the below state is of redux store's state.
+// the mapStateToProps function return an object 
+// which represents/having different properties that we want to add to props
+
+const mapStateToProps = (state) => {    // this is redux store's state
+    return {
+      posts: state.posts
+    }
+}
+
+// the above mapStateToProps function will be pass to connect method 
+// so that when we connect to redux, it knows what data we want to grab from the redux
+
+// connect is basically a function
+// which returns higher order component
+// so first we invoke the connect function and it will return high order component
+// than that high order component will wrapp the Home component and
+// gives the power to Home component to connect with redux
+export default connect(mapStateToProps)(Home);
